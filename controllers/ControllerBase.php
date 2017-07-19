@@ -11,7 +11,6 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use yii\filters\auth\QueryParamAuth;
 use yii\filters\AccessControl;
-use api\filters\TokenAuth;
 
 class ControllerBase extends Controller
 {

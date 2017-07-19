@@ -9,33 +9,47 @@
 
 namespace app\controllers;
 
-use app\models\BmiForm;
+use Yii;
+use app\models\Bmi;
 use yii\web\Controller;
 
 class BmiController extends Controller
 {
     public function actionCalculate()
     {
-        $model = new BmiForm();
+        $model = new Bmi();
 
-        if ($model->load(\Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
             $cm = $model->height / 100;
             $model->bmi = $model->weight / ($cm * $cm);
 
-            \Yii::$app->db->createCommand()->insert('bmi', [
-                'name' => $model->name,
-                'sex' => $model->sex,
-                'age' => $model->age,
-                'height' => $model->height,
-                'weight' => $model->weight,
-                'bmi' => $model->bmi
-            ]);
+            $existed = Bmi::find()
+                ->where([
+                    'name' => $model->name,
+                    'sex' => $model->sex,
+                    'age' => $model->age,
+                ])
+                ->one();
+
+            if ($existed) {
+                $existed->name = $model->name;
+                $existed->sex = $model->sex;
+                $existed->age = $model->age;
+                $existed->height = $model->height;
+                $existed->weight = $model->weight;
+                $existed->bmi = $model->bmi;
+                $existed->save();
+            } else {
+                $result = $model->save(false);
+                if (!$result) {
+                    return "保存失败";
+                }
+            }
         }
 
         return $this->render('bmi', [
             'model' => $model
         ]);
     }
-
 }
