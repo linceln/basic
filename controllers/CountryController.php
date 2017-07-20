@@ -1,12 +1,6 @@
 <?php
 /**
  * Created by PhpStorm.
-<<<<<<< HEAD
- * User: Administrator
- * Date: 2017/7/14
- * Time: 14:01
- */
-=======
  * User: lincoln
  * Date: 14/07/2017
  * Time: 06:42
@@ -40,4 +34,3 @@ class CountryController extends Controller
         ]);
     }
 }
->>>>>>> 2a4c595c8e3aa85148e8ac2212e5b7bd62c7c798

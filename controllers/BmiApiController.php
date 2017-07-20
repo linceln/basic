@@ -16,18 +16,13 @@ class BmiApiController extends ControllerBase
     public function actionCalculate()
     {
         $data = Yii::$app->request->post();
-        $name = Yii::$app->request->post('name');
-        $sex = Yii::$app->request->post('sex');
-        $age = Yii::$app->request->post('age');
-        $height = Yii::$app->request->post('height');
-        $weight = Yii::$app->request->post('weight');
 
         $model = new Bmi();
-        $model->name = $name;
-        $model->sex = $sex;
-        $model->age = $age;
-        $model->height = $height;
-        $model->weight = $weight;
+        $model->name = $data['name'];
+        $model->sex = $data['sex'];
+        $model->age = $data['age'];
+        $model->height = $data['height'];
+        $model->weight = $data['weight'];
 
         if ($model->validate()) {
 
