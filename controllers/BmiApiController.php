@@ -15,7 +15,7 @@ class BmiApiController extends ControllerBase
 {
     public function actionCalculate()
     {
-        $date=Yii::$app->request->post();
+        $data = Yii::$app->request->post();
         $name = Yii::$app->request->post('name');
         $sex = Yii::$app->request->post('sex');
         $age = Yii::$app->request->post('age');
@@ -29,10 +29,11 @@ class BmiApiController extends ControllerBase
         $model->height = $height;
         $model->weight = $weight;
 
-        $cm = $model->height / 100;
-      /*  $model->bmi = $model->weight / ($cm * $cm);*/
-
         if ($model->validate()) {
+
+            $cm = $model->height / 100;
+            $model->bmi = $model->weight / ($cm * $cm);
+
             $existed = Bmi::find()
                 ->where([
                     'name' => $model->name,
